@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        #pdf-container {
+            margin-top: 20px;
+            width: 100%;
+            height: 800px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="showPDF(event)">
+        <input 
+            type="text" 
+            id="pvdNumber" 
+            placeholder="ป้อนหมายเลข PVD"
+            pattern="\d*"
+            required
+        >
+    </form>
+    
+    <div id="pdf-container"></div>
+
+    <script>
+        function showPDF(event) {
+            event.preventDefault(); // ป้องกันการรีโหลดหน้า
+            
+            const number = document.getElementById('pvdNumber').value;
+            const pdfContainer = document.getElementById('pdf-container');
+            
+            // สร้าง URL ตามรูปแบบที่กำหนด
+            const pdfUrl = `https://extranet.mwa.co.th:11003/ehr/report/pma/pvd_pdf/2567/02_${number}.pdf`;
+            
+            // สร้าง iframe สำหรับแสดง PDF
+            pdfContainer.innerHTML = `
+                <iframe 
+                    src="${pdfUrl}" 
+                    width="100%" 
+                    height="100%"
+                    frameborder="0"
+                ></iframe>
+            `;
+        }
+    </script>
+</body>
+</html>
